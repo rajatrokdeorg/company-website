@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Vacancy</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <h1>Web Developer Job Vacancy</h1>
+    <p>We are looking for a talented Web Developer to join our team.</p>
+    <button id="apply-button">Apply</button>
+    <div id="popup" style="display:none;">
+        <h2>Apply for Web Developer Job</h2>
+        <form id="resume-form">
+            <input type="file" id="resume" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message" style="display:none;"></p>
+    </div>
+    <script>
+        $("#apply-button").click(function() {
+            $("#popup").fadeIn();
+        });
+        $("#resume-form").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "submit.php",
+                type: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $("#message").html("Resume submitted successfully!").show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
