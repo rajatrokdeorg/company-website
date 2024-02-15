@@ -29,4 +29,4 @@ if(move_uploaded_file($file, $file_upload_path)) {
     $header .= "This is a multi-part message in MIME format.\r\n";
     $header .= "--".$uid."\r\n";
     $header .= "Content-type:text/plain; charset=iso-8859-1\r\n";
-    $header .= "Content
+    $header .= "ContentTransfer-Encoding: 7bit\r\n\r\n"; $header .= $message."\r\n\r\n"; $header .= "--".$uid."\r\n"; $header .= "Content-Type: application/octet-stream; name="".$filename.""\r\n"; $header .= "Content-Transfer-Encoding: base64\r\n"; $header .= "Content-Disposition: attachment; filename="".$filename.""\r\n\r\n"; $header .= $content."\r\n\r\n"; $success = mail($to, $subject, "", $header); if($success) { echo "Resume submitted successfully and an email has been sent to gmail with your resume attached."; } else { echo "Error submitting resume."; } } ?>
