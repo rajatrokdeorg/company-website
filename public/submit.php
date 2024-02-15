@@ -9,24 +9,3 @@ if($filetype != "pdf" && $filetype != "doc" && $filetype != "docx") {
     exit;
 }
 
-$to = "youremail@gmail.com";
-$subject = "New Resume Submission";
-$message = "A new resume has been submitted for the Web Developer position.";
-$headers = "From: yourwebsite.com";
-$file = $target_file;
-$filename = basename($file);
-$filetype = pathinfo($file,PATHINFO_EXTENSION);
-$random_hash = md5(date('r', time()));
-$file_upload_path = $target_dir . $random_hash . '.' . $filetype;
-
-if(move_uploaded_file($file, $file_upload_path)) {
-    $file = $file_upload_path;
-    $content = chunk_split(base64_encode(file_get_contents($file)));
-    $uid = md5(uniqid(time()));
-    $header = "From: yourwebsite.com \r\n";
-    $header .= "Bcc: yourwebsite.com \r\n";
-    $header .= "Content-Type: multipart/mixed; boundary=\"".$uid."\" \r\n\r\n";
-    $header .= "This is a multi-part message in MIME format.\r\n";
-    $header .= "--".$uid."\r\n";
-    $header .= "Content-type:text/plain; charset=iso-8859-1\r\n";
-    $header .= "ContentTransfer-Encoding: 7bit\r\n\r\n"; $header .= $message."\r\n\r\n"; $header .= "--".$uid."\r\n"; $header .= "Content-Type: application/octet-stream; name="".$filename.""\r\n"; $header .= "Content-Transfer-Encoding: base64\r\n"; $header .= "Content-Disposition: attachment; filename="".$filename.""\r\n\r\n"; $header .= $content."\r\n\r\n"; $success = mail($to, $subject, "", $header); if($success) { echo "Resume submitted successfully and an email has been sent to gmail with your resume attached."; } else { echo "Error submitting resume."; } } ?>
