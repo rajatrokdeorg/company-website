@@ -12,7 +12,7 @@
     <div id="popup" style="display:none;">
         <h2>Apply for Web Developer Job</h2>
         <form id="resume-form">
-            <input type="file" id="resume" required>
+            <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required>
             <button type="submit">Submit</button>
         </form>
         <p id="message" style="display:none;"></p>
@@ -26,11 +26,11 @@
             $.ajax({
                 url: "submit.php",
                 type: "POST",
-                data: new FormData(this),
+                 new FormData(this),
                 processData: false,
                 contentType: false,
                 success: function(data) {
-                    $("#message").html("Resume submitted successfully!").show();
+                    $("#message").html("Resume submitted successfully, an email will be sent to gmail with your resume attached.").show();
                 }
             });
         });
