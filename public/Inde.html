@@ -1,1 +1,148 @@
- rajat
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listing Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #job-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #job-form input,
+        #job-form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        #job-form button {
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #job-form button:hover {
+            background: #2980b9;
+        }
+
+        #jobs-container {
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background: #fafafa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .job-card h3 {
+            margin: 0 0 5px 0;
+        }
+
+        .job-card .company, .job-card .location {
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .job-card .description {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Job Listing Portal</h1>
+    </header>
+
+    <main>
+        <section id="job-form-section">
+            <h2>Post a Job</h2>
+            <form id="job-form">
+                <input type="text" id="title" placeholder="Job Title" required>
+                <input type="text" id="company" placeholder="Company Name" required>
+                <input type="text" id="location" placeholder="Location" required>
+                <textarea id="description" placeholder="Job Description" required></textarea>
+                <button type="submit">Post Job</button>
+            </form>
+        </section>
+
+        <section id="job-listings">
+            <h2>Available Jobs</h2>
+            <div id="jobs-container">
+                <!-- Jobs will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('job-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            if (title && company && location && description) {
+                addJobToList(title, company, location, description);
+                this.reset();
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+
+        function addJobToList(title, company, location, description) {
+            const jobsContainer = document.getElementById('jobs-container');
+
+            const jobCard = document.createElement('div');
+            jobCard.className = 'job-card';
+
+            jobCard.innerHTML = `
+                <h3>${title}</h3>
+                <p class="company">${company}</p>
+                <p class="location">${location}</p>
+                <p class="description">${description}</p>
+            `;
+
+            jobsContainer.prepend(jobCard);
+        }
+    </script>
+
+</body>
+</html>
